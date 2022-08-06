@@ -8,9 +8,9 @@ import androidx.navigation.NavController
 import com.jinoralen.cameratest.ui.navigation.Screen
 
 @Composable
-fun CameraScreen(navController: NavController) {
+fun CameraScreen(navController: NavController, userId: String) {
     Column() {
-        Text("Camera")
+        Text("Camera $userId")
         Button(onClick = { navController.navigate(Screen.Preview.route) }) {
             Text("Click")
         }
