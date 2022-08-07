@@ -22,6 +22,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.jinoralen.cameratest.ui.navigation.Screen
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.File
 
 @Composable
@@ -38,7 +39,7 @@ fun UploadScreen(navController: NavController, image: File, viewModel: UploadVie
                 Text("Upload")
             }
 
-            HandleUploadEvents(viewModel, navController)
+            HandleUploadEvents(viewModel, navController, image)
         }
     }
 }
@@ -87,7 +88,8 @@ private fun BoxScope.StoragePermissions(content: @Composable BoxScope.() -> Unit
 @Composable
 private fun HandleUploadEvents(
     viewModel: UploadViewModel,
-    navController: NavController
+    navController: NavController,
+    image: File,
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
@@ -112,6 +114,9 @@ private fun HandleUploadEvents(
                     }
 
                     UploadViewModel.UploadViewModelEvent.Success -> {
+                        image.delete()
+                        Timber.d("Deleted cache image: $image")
+
                         navController.popBackStack(Screen.UserId.route, false)
                     }
                 }

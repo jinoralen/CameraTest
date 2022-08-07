@@ -16,6 +16,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jinoralen.cameratest.ui.navigation.Screen
 import com.jinoralen.cameratest.ui.theme.CameraTestTheme
+import timber.log.Timber
 import java.io.File
 
 @Preview
@@ -24,7 +25,7 @@ fun PreviewScreen_Preview() {
     CameraTestTheme() {
         val navController = rememberNavController()
         val file = File("/dev/null")
-        
+
         PreviewScreen(navController = navController, image = file)
     }
 }
@@ -46,14 +47,21 @@ fun PreviewScreen(navController: NavController, image: File) {
             .fillMaxWidth()
             .align(Alignment.BottomCenter)
             .padding(start = 32.dp, end = 32.dp, bottom = 64.dp)) {
-            
-            Button(onClick = { navController.popBackStack() }) {
+
+            Button(
+                onClick = {
+                    image.delete()
+                    Timber.d("Deleted cache image: $image")
+
+                    navController.popBackStack()
+                },
+            ) {
                 Text(text = "Retake")
             }
-            
+
             Spacer(modifier = Modifier.weight(1f))
 
-            Button(onClick = { navController.navigate(Screen.Upload.createPath(image))}) {
+            Button(onClick = { navController.navigate(Screen.Upload.createPath(image)) }) {
                 Text(text = "Continue")
             }
         }
