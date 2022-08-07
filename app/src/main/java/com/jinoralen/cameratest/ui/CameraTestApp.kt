@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.jinoralen.cameratest.feature.camera.CameraScreen
 import com.jinoralen.cameratest.feature.preview.PreviewScreen
 import com.jinoralen.cameratest.feature.upload.UploadScreen
@@ -21,6 +22,7 @@ import com.jinoralen.cameratest.ui.navigation.USER_ID
 import com.jinoralen.cameratest.ui.theme.CameraTestTheme
 
 @Composable
+@ExperimentalPermissionsApi
 fun CameraTestApp() {
     CameraTestTheme {
         // A surface container using the 'background' color from the theme

@@ -49,7 +49,6 @@ fun PreviewScreen(navController: NavController, image: File) {
             
             Button(onClick = { navController.popBackStack() }) {
                 Text(text = "Retake")
-
             }
             
             Spacer(modifier = Modifier.weight(1f))
