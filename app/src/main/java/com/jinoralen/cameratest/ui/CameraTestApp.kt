@@ -15,6 +15,7 @@ import com.jinoralen.cameratest.feature.camera.CameraScreen
 import com.jinoralen.cameratest.feature.preview.PreviewScreen
 import com.jinoralen.cameratest.feature.upload.UploadScreen
 import com.jinoralen.cameratest.feature.userid.UserIdScreen
+import com.jinoralen.cameratest.ui.navigation.IMAGE
 import com.jinoralen.cameratest.ui.navigation.Screen
 import com.jinoralen.cameratest.ui.navigation.USER_ID
 import com.jinoralen.cameratest.ui.theme.CameraTestTheme
@@ -43,12 +44,22 @@ fun CameraTestApp() {
                     }
                 }
 
-                composable(Screen.Preview.route) {
-                    PreviewScreen(navController)
+                composable(
+                    route = Screen.Preview.route,
+                    arguments = listOf(navArgument(IMAGE){ type = NavType.StringType })
+                ) {
+                    Screen.Preview.image(it, LocalContext.current)?.let { image ->
+                        PreviewScreen(navController, image)
+                    }
                 }
 
-                composable(Screen.Upload.route) {
-                    UploadScreen(navController)
+                composable(
+                    route = Screen.Upload.route,
+                    arguments = listOf(navArgument(IMAGE){ type = NavType.StringType })
+                ) {
+                    Screen.Upload.image(it, LocalContext.current)?.let { image ->
+                        UploadScreen(navController, image)
+                    }
                 }
             }
         }

@@ -6,11 +6,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.jinoralen.cameratest.ui.navigation.Screen
+import java.io.File
 
 @Composable
-fun UploadScreen(navController: NavController) {
+fun UploadScreen(navController: NavController, image: File) {
     Column() {
-        Text("Upload")
+        Text("Upload $image")
+
         Button(onClick = { navController.popBackStack(Screen.UserId.route, false) }) {
             Text("Click")
         }

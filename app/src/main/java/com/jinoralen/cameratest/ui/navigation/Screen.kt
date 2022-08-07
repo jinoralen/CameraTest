@@ -20,7 +20,27 @@ sealed class Screen(val route: String) {
         }
     }
 
-    object Preview: Screen("preview")
+    object Preview: Screen("preview/{$IMAGE}") {
+        fun createPath(image: File): String {
+            return "preview/${image.name}"
+        }
 
-    object Upload: Screen("upload")
+        fun image(backStackEntry: NavBackStackEntry, context: Context): File? {
+             return backStackEntry.arguments?.getString(IMAGE)?.let {
+                 File(context.cacheDir, it)
+             }
+        }
+    }
+
+    object Upload: Screen("upload/{$IMAGE}") {
+        fun createPath(image: File): String {
+            return "upload/${image.name}"
+        }
+
+        fun image(backStackEntry: NavBackStackEntry, context: Context): File? {
+            return backStackEntry.arguments?.getString(IMAGE)?.let {
+                File(context.cacheDir, it)
+            }
+        }
+    }
 }
